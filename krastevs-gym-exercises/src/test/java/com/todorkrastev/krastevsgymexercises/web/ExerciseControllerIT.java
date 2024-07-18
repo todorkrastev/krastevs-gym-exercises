@@ -1,6 +1,7 @@
 package com.todorkrastev.krastevsgymexercises.web;
 
 import com.jayway.jsonpath.JsonPath;
+import com.todorkrastev.krastevsgymexercises.model.entity.ExerciseCategoryEntity;
 import com.todorkrastev.krastevsgymexercises.model.entity.ExerciseEntity;
 import com.todorkrastev.krastevsgymexercises.model.enums.EquipmentTypeEnum;
 import com.todorkrastev.krastevsgymexercises.model.enums.ExerciseCategoryEnum;
@@ -41,9 +42,8 @@ public class ExerciseControllerIT {
                         .setMusclesWorkedUrl("MusclesWorkedUrl")
                         .setInstructions("Instructions")
                         .setNotes("Notes")
-                        .setExerciseCategoryEnum(ExerciseCategoryEnum.ABS)
-                        .setEquipmentTypeEnum(EquipmentTypeEnum.BARBELL)
-                        .setPicture("Picture")
+                        .setCategory(new ExerciseCategoryEntity().setCategory(ExerciseCategoryEnum.ABS))
+                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
         );
 
         mockMvc.perform(get("/exercises/{id}", actualEntity.getId())

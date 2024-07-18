@@ -2,13 +2,16 @@ package com.todorkrastev.krastevsgymexercises.service.impl;
 
 import com.todorkrastev.krastevsgymexercises.exception.ObjectNotFoundException;
 import com.todorkrastev.krastevsgymexercises.model.dto.CreateExerciseDTO;
+import com.todorkrastev.krastevsgymexercises.model.dto.CreateExerciseNotesDTO;
 import com.todorkrastev.krastevsgymexercises.model.dto.ExerciseDetailsDTO;
+import com.todorkrastev.krastevsgymexercises.model.entity.ExerciseCategoryEntity;
 import com.todorkrastev.krastevsgymexercises.model.entity.ExerciseEntity;
 import com.todorkrastev.krastevsgymexercises.repository.ExerciseRepository;
 import com.todorkrastev.krastevsgymexercises.service.ExerciseService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
@@ -23,10 +26,9 @@ public class ExerciseServiceImpl implements ExerciseService {
         ExerciseEntity exercise = new ExerciseEntity()
                 .setName(createExerciseDTO.name())
                 .setDescription(createExerciseDTO.description())
-                .setEquipmentTypeEnum(createExerciseDTO.equipmentTypeEnum())
-                .setExerciseCategoryEnum(createExerciseDTO.exerciseCategoryEnum())
-                .setInstructions(createExerciseDTO.instructions())
-                .setPicture(createExerciseDTO.picture());
+                .setEquipmentType(createExerciseDTO.equipmentTypeEnum())
+                .setCategory(new ExerciseCategoryEntity().setCategory(createExerciseDTO.exerciseCategoryEnum()))
+                .setInstructions(createExerciseDTO.instructions());
 
 
         //  ExerciseEntity exercise = modelMapper.map(createExerciseDTO, ExerciseEntity.class);
@@ -44,7 +46,28 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public ExerciseDetailsDTO getOfferById(Long id) {
+    public ExerciseDetailsDTO createExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long id) {
+        Optional<ExerciseEntity> currentExercise = exerciseRepository.findById(id);
+
+        currentExercise.ifPresent(exerciseEntity -> exerciseRepository.save(exerciseEntity.setNotes(createExerciseNotesDTO.getNotes())));
+
+        if (currentExercise.isPresent()) {
+            return new ExerciseDetailsDTO(
+                    currentExercise.get().getId(),
+                    currentExercise.get().getName(),
+                    currentExercise.get().getDescription(),
+                    currentExercise.get().getGifUrl(),
+                    currentExercise.get().getMusclesWorkedUrl(),
+                    currentExercise.get().getInstructions(),
+                    currentExercise.get().getNotes()
+            );
+        }
+
+        return null;
+    }
+
+    @Override
+    public ExerciseDetailsDTO getExerciseById(Long id) {
         return exerciseRepository
                 .findById(id)
                 .map(exerciseEntity ->

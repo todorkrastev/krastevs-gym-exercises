@@ -1,7 +1,6 @@
 package com.todorkrastev.krastevsgymexercises.model.entity;
 
 import com.todorkrastev.krastevsgymexercises.model.enums.EquipmentTypeEnum;
-import com.todorkrastev.krastevsgymexercises.model.enums.ExerciseCategoryEnum;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,33 +10,34 @@ public class ExerciseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "exercise_name", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "gif_url")
+    @Column(name = "gif_url", columnDefinition = "TEXT")
     private String gifUrl;
 
-    @Column
+    @Column(name = "muscles_worked_url", columnDefinition = "TEXT")
     private String musclesWorkedUrl;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String instructions;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String notes;
 
-    @Column(name = "exercise_category", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private ExerciseCategoryEnum exerciseCategoryEnum;
+//    @Column(name = "exercise_category", nullable = false)
+//    @Enumerated(EnumType.STRING)
+//    private ExerciseCategoryEnum exerciseCategory;
 
     @Column(name = "equipment_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private EquipmentTypeEnum equipmentTypeEnum;
+    private EquipmentTypeEnum equipmentType;
 
-    private String picture;
+    @ManyToOne(optional = false)
+    private ExerciseCategoryEntity category;
 
     public ExerciseEntity() {
     }
@@ -105,31 +105,21 @@ public class ExerciseEntity {
         return this;
     }
 
-    public ExerciseCategoryEnum getExerciseCategoryEnum() {
-        return exerciseCategoryEnum;
+    public EquipmentTypeEnum getEquipmentType() {
+        return equipmentType;
     }
 
-    public ExerciseEntity setExerciseCategoryEnum(ExerciseCategoryEnum exerciseCategoryEnum) {
-        this.exerciseCategoryEnum = exerciseCategoryEnum;
+    public ExerciseEntity setEquipmentType(EquipmentTypeEnum equipmentType) {
+        this.equipmentType = equipmentType;
         return this;
     }
 
-    public EquipmentTypeEnum getEquipmentTypeEnum() {
-        return equipmentTypeEnum;
+    public ExerciseCategoryEntity getCategory() {
+        return category;
     }
 
-    public ExerciseEntity setEquipmentTypeEnum(EquipmentTypeEnum equipmentTypeEnum) {
-        this.equipmentTypeEnum = equipmentTypeEnum;
-        return this;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public ExerciseEntity setPicture(String picture) {
-        this.picture = picture;
+    public ExerciseEntity setCategory(ExerciseCategoryEntity category) {
+        this.category = category;
         return this;
     }
 }
-

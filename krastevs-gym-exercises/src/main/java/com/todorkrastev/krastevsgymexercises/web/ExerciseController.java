@@ -1,6 +1,7 @@
 package com.todorkrastev.krastevsgymexercises.web;
 
 import com.todorkrastev.krastevsgymexercises.model.dto.CreateExerciseDTO;
+import com.todorkrastev.krastevsgymexercises.model.dto.CreateExerciseNotesDTO;
 import com.todorkrastev.krastevsgymexercises.model.dto.ExerciseDetailsDTO;
 import com.todorkrastev.krastevsgymexercises.service.ExerciseService;
 import org.slf4j.Logger;
@@ -23,7 +24,21 @@ public class ExerciseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ExerciseDetailsDTO> getById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(exerciseService.getOfferById(id));
+        return ResponseEntity.ok(exerciseService.getExerciseById(id));
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<ExerciseDetailsDTO> createExerciseNotes(@PathVariable("id") Long id, @RequestBody CreateExerciseNotesDTO createExerciseNotesDTO) {
+        LOGGER.info("Creating an offer {}", createExerciseNotesDTO);
+
+        ExerciseDetailsDTO exerciseDetailsDTO = exerciseService.createExerciseNotes(createExerciseNotesDTO, id);
+        return ResponseEntity.created(
+                ServletUriComponentsBuilder
+                        .fromCurrentRequest()
+                        .path("/{id}")
+                        .buildAndExpand(exerciseDetailsDTO.id())
+                        .toUri()
+        ).body(exerciseDetailsDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -39,8 +54,6 @@ public class ExerciseController {
 
     @PostMapping
     public ResponseEntity<ExerciseDetailsDTO> createExercise(@RequestBody CreateExerciseDTO createExerciseDTO) {
-        LOGGER.info("Creating an offer {}", createExerciseDTO);
-
         ExerciseDetailsDTO exerciseDetailsDTO = exerciseService.createExercise(createExerciseDTO);
         return ResponseEntity.created(
                 ServletUriComponentsBuilder
