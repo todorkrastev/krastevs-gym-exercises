@@ -103,9 +103,8 @@ public class ExerciseControllerIT {
                         .setMusclesWorkedUrl("MusclesWorkedUrl")
                         .setInstructions("Instructions")
                         .setNotes("Notes")
-                        .setExerciseCategoryEnum(ExerciseCategoryEnum.ABS)
-                        .setEquipmentTypeEnum(EquipmentTypeEnum.BARBELL)
-                        .setPicture("Picture")
+                        .setCategory(new ExerciseCategoryEntity().setCategory(ExerciseCategoryEnum.ABS))
+                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
         );
 
         mockMvc.perform(delete("/exercises/{id}", actualEntity.getId())
