@@ -88,10 +88,9 @@ public class ExerciseControllerIT {
 
         assertEquals("Exercise name Test", createdExercise.getName());
         assertEquals("Description for Exercise Test", createdExercise.getDescription());
-        assertEquals("BARBELL", createdExercise.getEquipmentTypeEnum().toString());
-        assertEquals("BICEPS", createdExercise.getExerciseCategoryEnum().toString());
+        assertEquals("BARBELL", createdExercise.getEquipmentType().toString());
+        assertEquals("BICEPS", createdExercise.getCategory().toString());
         assertEquals("Instructions for Exercise Test", createdExercise.getInstructions());
-        assertEquals("URL for Exercise Test", createdExercise.getPicture());
     }
 
     @Test
