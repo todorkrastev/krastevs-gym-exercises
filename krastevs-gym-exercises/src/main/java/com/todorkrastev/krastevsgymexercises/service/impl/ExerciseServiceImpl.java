@@ -4,7 +4,6 @@ import com.todorkrastev.krastevsgymexercises.exception.ObjectNotFoundException;
 import com.todorkrastev.krastevsgymexercises.model.dto.CreateExerciseDTO;
 import com.todorkrastev.krastevsgymexercises.model.dto.CreateExerciseNotesDTO;
 import com.todorkrastev.krastevsgymexercises.model.dto.ExerciseDetailsDTO;
-import com.todorkrastev.krastevsgymexercises.model.entity.ExerciseCategoryEntity;
 import com.todorkrastev.krastevsgymexercises.model.entity.ExerciseEntity;
 import com.todorkrastev.krastevsgymexercises.repository.ExerciseRepository;
 import com.todorkrastev.krastevsgymexercises.service.ExerciseService;
@@ -24,11 +23,15 @@ public class ExerciseServiceImpl implements ExerciseService {
     @Override
     public ExerciseDetailsDTO createExercise(CreateExerciseDTO createExerciseDTO) {
         ExerciseEntity exercise = new ExerciseEntity()
-                .setName(createExerciseDTO.name())
-                .setDescription(createExerciseDTO.description())
-                .setEquipmentType(createExerciseDTO.equipmentTypeEnum())
-                .setCategory(new ExerciseCategoryEntity().setCategory(createExerciseDTO.exerciseCategoryEnum()))
-                .setInstructions(createExerciseDTO.instructions());
+                .setName(createExerciseDTO.getName())
+                .setDescription(createExerciseDTO.getDescription())
+                .setEquipmentType(createExerciseDTO.getEquipmentType())
+                .setCategory(createExerciseDTO.getCategory())
+                .setInstructions(createExerciseDTO.getInstructions())
+                .setGifUrl(createExerciseDTO.getGifUrl())
+                .setUserId(createExerciseDTO.getCurrUserId());
+
+        System.out.println(exercise);
 
 
         //  ExerciseEntity exercise = modelMapper.map(createExerciseDTO, ExerciseEntity.class);

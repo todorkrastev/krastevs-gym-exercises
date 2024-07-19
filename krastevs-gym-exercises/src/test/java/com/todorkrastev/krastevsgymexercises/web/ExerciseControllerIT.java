@@ -1,7 +1,6 @@
 package com.todorkrastev.krastevsgymexercises.web;
 
 import com.jayway.jsonpath.JsonPath;
-import com.todorkrastev.krastevsgymexercises.model.entity.ExerciseCategoryEntity;
 import com.todorkrastev.krastevsgymexercises.model.entity.ExerciseEntity;
 import com.todorkrastev.krastevsgymexercises.model.enums.EquipmentTypeEnum;
 import com.todorkrastev.krastevsgymexercises.model.enums.ExerciseCategoryEnum;
@@ -42,7 +41,7 @@ public class ExerciseControllerIT {
                         .setMusclesWorkedUrl("MusclesWorkedUrl")
                         .setInstructions("Instructions")
                         .setNotes("Notes")
-                        .setCategory(new ExerciseCategoryEntity().setCategory(ExerciseCategoryEnum.ABS))
+                        .setCategory(ExerciseCategoryEnum.ABS)
                         .setEquipmentType(EquipmentTypeEnum.BARBELL)
         );
 
@@ -103,7 +102,7 @@ public class ExerciseControllerIT {
                         .setMusclesWorkedUrl("MusclesWorkedUrl")
                         .setInstructions("Instructions")
                         .setNotes("Notes")
-                        .setCategory(new ExerciseCategoryEntity().setCategory(ExerciseCategoryEnum.ABS))
+                        .setCategory(ExerciseCategoryEnum.ABS)
                         .setEquipmentType(EquipmentTypeEnum.BARBELL)
         );
 

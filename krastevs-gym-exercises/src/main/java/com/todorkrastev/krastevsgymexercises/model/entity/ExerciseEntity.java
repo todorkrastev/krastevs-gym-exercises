@@ -1,6 +1,7 @@
 package com.todorkrastev.krastevsgymexercises.model.entity;
 
 import com.todorkrastev.krastevsgymexercises.model.enums.EquipmentTypeEnum;
+import com.todorkrastev.krastevsgymexercises.model.enums.ExerciseCategoryEnum;
 import jakarta.persistence.*;
 
 @Entity
@@ -28,16 +29,15 @@ public class ExerciseEntity {
     @Column(columnDefinition = "TEXT")
     private String notes;
 
-//    @Column(name = "exercise_category", nullable = false)
-//    @Enumerated(EnumType.STRING)
-//    private ExerciseCategoryEnum exerciseCategory;
-
     @Column(name = "equipment_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private EquipmentTypeEnum equipmentType;
 
-    @ManyToOne(optional = false)
-    private ExerciseCategoryEntity category;
+    @Enumerated(EnumType.STRING)
+    public ExerciseCategoryEnum category;
+
+    @Column(name = "user_id")
+    private Long userId;
 
     public ExerciseEntity() {
     }
@@ -114,12 +114,21 @@ public class ExerciseEntity {
         return this;
     }
 
-    public ExerciseCategoryEntity getCategory() {
+    public ExerciseCategoryEnum getCategory() {
         return category;
     }
 
-    public ExerciseEntity setCategory(ExerciseCategoryEntity category) {
+    public ExerciseEntity setCategory(ExerciseCategoryEnum category) {
         this.category = category;
+        return this;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public ExerciseEntity setUserId(Long userId) {
+        this.userId = userId;
         return this;
     }
 }
